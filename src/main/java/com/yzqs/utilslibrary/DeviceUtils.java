@@ -1,6 +1,7 @@
 package com.yzqs.utilslibrary;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.wifi.WifiInfo;
@@ -87,6 +88,25 @@ public class DeviceUtils {
         }
         return "please open wifi";
     }
+
+    public static boolean isValidContext(Context c) {
+        Activity a = (Activity) c;
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            if (a.isDestroyed() || a.isFinishing()) {
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            if (a.isFinishing()) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+    }
+
 
     /**
      * 获取设备MAC地址
